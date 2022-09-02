@@ -1,0 +1,23 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "prettier.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "/*electron-builder.json5"
+      ],
+      "url": "https://json.schemastore.org/electron-builder"
+    }
+  ],
+  "cSpell.words": [
+    "antfu",
+    "vite",
+    "asar",
+    "nsis",
+    "taze"
+  ]
+}

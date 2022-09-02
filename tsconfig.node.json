@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "preserve",
+    "composite": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "vite-plugin-electron/electron-env"
+    ]
+  },
+  "include": [
+    "package.json",
+    "electron"
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "electron-vite-starter",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "description": "A Better Electron Vite Starter Template.",
   "author": {
@@ -15,17 +15,23 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build && electron-builder",
+    "build": "pnpm typecheck && vite build && electron-builder",
     "postinstall": "electron-builder install-app-deps",
+    "lint:fix": "eslint . --fix",
     "pack": "electron-builder --dir",
-    "up": "taze major -I"
+    "typecheck": "vue-tsc --noEmit",
+    "up": "taze major -I",
+    "release": "np"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.26.2",
     "@vitejs/plugin-vue": "^3.0.1",
     "electron": "^20.0.2",
     "electron-builder": "^23.3.3",
+    "electron-debug": "^3.2.0",
+    "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.23.0",
+    "np": "^7.6.2",
     "taze": "^0.8.0",
     "typescript": "^4.7.4",
     "vite": "^3.0.8",

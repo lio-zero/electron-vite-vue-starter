@@ -1,6 +1,8 @@
 import { release } from 'os'
 import { join } from 'path'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
+import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer'
+import debug from 'electron-debug'
 
 // Main Process Modules: https://www.electronjs.org/docs/latest/api/app
 // Disable GPU Acceleration for Windows 7
@@ -11,6 +13,7 @@ if (release().startsWith('6.1'))
 if (process.platform === 'win32')
   app.setAppUserModelId(app.getName())
 
+// Prevent multiple instances of the app
 if (!app.requestSingleInstanceLock()) {
   app.quit()
   process.exit(0)
@@ -62,10 +65,24 @@ async function createWindow() {
     win.loadURL(url)
     // Open devTool if the app is not packaged
     win.webContents.openDevTools()
+
+    // Errors are thrown if the dev tools are opened before the DOM is ready
+    win.webContents.once('dom-ready', async () => {
+      await installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
+        .then(name => console.log(`Added Extension: ${name}`))
+        .catch(err => console.log('An error occurred: ', err))
+        .finally(() => {
+          // https://github.com/sindresorhus/electron-debug
+          debug()
+          win.webContents.openDevTools()
+        })
+    })
   }
 
   // Emitted when the window is closed.
   win.on('closed', () => {
+    // Dereference the window
+    // For multiple windows store them in an array
     win = null
   })
 

@@ -16,6 +16,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build && electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --dir",
     "up": "taze major -I"
   },
   "devDependencies": {

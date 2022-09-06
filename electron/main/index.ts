@@ -2,6 +2,7 @@ import { release } from 'os'
 import { join } from 'path'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
 
+// Main Process Modules: https://www.electronjs.org/docs/latest/api/app
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1'))
   app.disableHardwareAcceleration()
@@ -26,15 +27,22 @@ export const ROOT_PATH = {
   public: join(__dirname, app.isPackaged ? '../..' : '../../../public'),
 }
 
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
 let win: BrowserWindow | null = null
+
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.js')
 const url = process.env.VITE_DEV_SERVER_URL as string
-const indexHtml = join(ROOT_PATH.dist, 'index.html')
+const indexHTML = join(ROOT_PATH.dist, 'index.html')
 
 async function createWindow() {
+  // Create the browser window.
+  // https://www.electronjs.org/docs/latest/api/browser-window
   win = new BrowserWindow({
-    title: 'Main window',
+    width: 800,
+    height: 600,
+    title: 'Application is currently initializing...',
     icon: join(ROOT_PATH.public, 'favicon.ico'),
     webPreferences: {
       preload,
@@ -46,8 +54,9 @@ async function createWindow() {
     },
   })
 
+  // Load app
   if (app.isPackaged) {
-    win.loadFile(indexHtml)
+    win.loadFile(indexHTML)
   }
   else {
     win.loadURL(url)
@@ -55,8 +64,14 @@ async function createWindow() {
     win.webContents.openDevTools()
   }
 
+  // Emitted when the window is closed.
+  win.on('closed', () => {
+    win = null
+  })
+
   // Test actively push message to the Electron-Renderer
   win.webContents.on('did-finish-load', () => {
+    win.setTitle(`Getting started with electron-vite-vue-starter (v${app.getVersion()})`)
     win?.webContents.send('main-process-message', new Date().toLocaleString())
   })
 
@@ -68,8 +83,12 @@ async function createWindow() {
   })
 }
 
+// or 'ready' event
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
 app.whenReady().then(createWindow)
 
+// Quit when all windows are closed.
 app.on('window-all-closed', () => {
   win = null
   if (process.platform !== 'darwin')
@@ -103,9 +122,12 @@ ipcMain.handle('open-win', (event, arg) => {
   })
 
   if (app.isPackaged)
-    childWindow.loadFile(indexHtml, { hash: arg })
+    childWindow.loadFile(indexHTML, { hash: arg })
 
   else
     childWindow.loadURL(`${url}/#${arg}`)
     // childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
 })
+
+// https://www.electronjs.org/docs/latest/tutorial/security#13-disable-or-limit-navigation
+// app.on('web-contents-created', (_event, _contents) => {})

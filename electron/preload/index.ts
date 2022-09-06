@@ -24,8 +24,8 @@ const safeDOM = {
 }
 
 /**
+ * Loaders at startup. Here are some examples of loaders:
  * https://tobiasahlin.com/spinkit
- * https://connoratherton.com/loaders
  * https://projects.lukehaas.me/css-loaders
  * https://matejkustec.github.io/SpinThatShit
  */

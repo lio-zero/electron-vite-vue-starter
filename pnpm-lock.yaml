@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@antfu/eslint-config': ^0.26.2
   '@vitejs/plugin-vue': ^3.0.1
+  cross-env: ^7.0.3
   electron: ^20.0.2
   electron-builder: ^23.3.3
   eslint: ^8.23.0
@@ -16,6 +17,7 @@ specifiers:
 devDependencies:
   '@antfu/eslint-config': 0.26.2_yqf6kl63nyoq5megxukfnom5rm
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.38
+  cross-env: 7.0.3
   electron: 20.1.1
   electron-builder: 23.3.3
   eslint: 8.23.0
@@ -1384,6 +1386,14 @@ packages:
       buffer: 5.7.1
     dev: true
     optional: true
+
+  /cross-env/7.0.3:
+    resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
+    engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+    dev: true
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}

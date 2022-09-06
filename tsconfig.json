@@ -9,6 +9,8 @@
     "importHelpers": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
     "sourceMap": true,
     "paths": {},
     "allowSyntheticDefaultImports": true,

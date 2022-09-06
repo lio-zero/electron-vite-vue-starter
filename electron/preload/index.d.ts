@@ -10,7 +10,9 @@ declare const safeDOM: {
  * https://matejkustec.github.io/SpinThatShit
  */
 declare function useLoading(): {
-    appendLoading(): void;
-    removeLoading(): void;
-};
-declare const appendLoading: () => void, removeLoading: () => void;
+  appendLoading(): void
+  removeLoading(): void
+}
+
+declare const appendLoading: () => void
+declare const removeLoading: () => void

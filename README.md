@@ -16,3 +16,7 @@ A Better Electron Vite Starter Template.
 ```
 
 [electron-builder.json](https://www.electron.build/configuration/configuration) configuration, please see [Common Configuration](https://www.electron.build/configuration/configuration).
+
+## Security
+
+[Security](https://www.electronjs.org/docs/latest/tutorial/security)

@@ -21,9 +21,10 @@ const safeDOM = {
       return parent.removeChild(child)
   },
 }
+
 /**
+ * Loaders at startup. Here are some examples of loaders:
  * https://tobiasahlin.com/spinkit
- * https://connoratherton.com/loaders
  * https://projects.lukehaas.me/css-loaders
  * https://matejkustec.github.io/SpinThatShit
  */
@@ -80,3 +81,15 @@ window.onmessage = (ev) => {
   ev.data.payload === 'removeLoading' && removeLoading()
 }
 setTimeout(removeLoading, 4999)
+
+// preload.js
+window.addEventListener('DOMContentLoaded', () => {
+  const replaceText = (selector, text) => {
+    const element = document.getElementById(selector)
+    if (element)
+      element.innerText = text
+  }
+
+  for (const type of ['chrome', 'node', 'electron'])
+    replaceText(`${type}-version`, process.versions[type])
+})

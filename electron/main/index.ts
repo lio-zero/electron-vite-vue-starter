@@ -1,8 +1,8 @@
 import { release } from 'os'
 import { join } from 'path'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
-import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer'
 import debug from 'electron-debug'
+import unhandled from 'electron-unhandled'
 
 // Main Process Modules: https://www.electronjs.org/docs/latest/api/app
 // Disable GPU Acceleration for Windows 7
@@ -63,20 +63,20 @@ async function createWindow() {
   }
   else {
     win.loadURL(url)
+
     // Open devTool if the app is not packaged
     win.webContents.openDevTools()
 
-    // Errors are thrown if the dev tools are opened before the DOM is ready
-    win.webContents.once('dom-ready', async () => {
-      await installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
-        .then(name => console.log(`Added Extension: ${name}`))
-        .catch(err => console.log('An error occurred: ', err))
-        .finally(() => {
-          // https://github.com/sindresorhus/electron-debug
-          debug()
-          win.webContents.openDevTools()
-        })
+    debug()
+    unhandled({
+      showDialog: false,
     })
+
+    // https://github.com/MarshallOfSound/electron-devtools-installer/issues/187
+    // Errors are thrown if the dev tools are opened before the DOM is ready
+    // await installExtension(VUEJS3_DEVTOOLS)
+    //   .then(name => console.log(`Added Extension: ${name}`))
+    //   .catch(err => console.log('An error occurred: ', err))
   }
 
   // Emitted when the window is closed.

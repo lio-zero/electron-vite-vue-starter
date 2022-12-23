@@ -2,7 +2,6 @@ import { release } from 'os'
 import { join } from 'path'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import debug from 'electron-debug'
-import unhandled from 'electron-unhandled'
 
 // Main Process Modules: https://www.electronjs.org/docs/latest/api/app
 // Disable GPU Acceleration for Windows 7
@@ -68,9 +67,6 @@ async function createWindow() {
     win.webContents.openDevTools()
 
     debug()
-    unhandled({
-      showDialog: false,
-    })
 
     // https://github.com/MarshallOfSound/electron-devtools-installer/issues/187
     // Errors are thrown if the dev tools are opened before the DOM is ready

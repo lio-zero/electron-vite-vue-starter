@@ -36,7 +36,7 @@
     "np": "^7.6.2",
     "taze": "^0.8.5",
     "typescript": "^4.9.4",
-    "vite": "^4.0.3",
+    "vite": "^4.0.5",
     "vite-plugin-electron": "^0.11.1",
     "vite-plugin-electron-renderer": "^0.11.3",
     "vitest": "^0.26.2",
